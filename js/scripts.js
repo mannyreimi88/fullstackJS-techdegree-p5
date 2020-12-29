@@ -131,4 +131,6 @@ searchInput.addEventListener('keyup', () => {
             card.style.display = 'none';
         }
       }
-})
+});
+
+document.getElementById('search-submit').addEventListener('submit', e => e.preventDefault());
