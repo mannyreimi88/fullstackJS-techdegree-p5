@@ -46,8 +46,8 @@ function generateCards(data) {
         // recursive loop code adapted from @Rotareti https://stackoverflow.com/a/41550077 
         function saveObjInDataAttrs (obj, element) {
             Object.entries(obj).forEach(([key, val]) => {
-              if (val && typeof val === "object") saveObjInDataAttrs(val, card); // recurse.
-              else element.dataset[key] = val; // or do something with key and val.
+                if (val && typeof val === "object") saveObjInDataAttrs(val, card);
+                else element.dataset[key] = val; 
             });
         };
         saveObjInDataAttrs(user, card);
@@ -106,9 +106,29 @@ fetch(randomUserUrl)
     // modal displays the 
 
 galleryDiv.addEventListener('click', event => {
-    if (/^card/.test(event.target.classList)) {
+    if (event.target.className.includes('card')) {
         const card = event.target.closest('.card');
         const user = card.dataset;
         generateModal(user);
     }
 });
+
+// exceeds
+    // search by name (adapted from https://www.w3schools.com/howto/howto_js_search_menu.asp)
+
+const searchInput = document.querySelector('#search-input');
+
+searchInput.addEventListener('keyup', () => {
+    const filter = searchInput.value.toUpperCase();
+    const names = galleryDiv.querySelectorAll('#name');
+
+    for (i = 0; i < names.length; i++) {
+        const name = names[i];
+        const card = names[i].parentNode.parentNode;
+        if (name.innerText.toUpperCase().indexOf(filter) > -1) {
+            card.style.display = 'inherit';
+        } else {
+            card.style.display = 'none';
+        }
+      }
+})
