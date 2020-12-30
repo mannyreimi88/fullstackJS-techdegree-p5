@@ -24,6 +24,18 @@ searchDiv.insertAdjacentHTML('beforeend', search);
         // background color for the body has been changed
         // input search box decoration has been removed for better functionality
 
+// step 4 (done) – get and display 12 random users
+    // single request to Random User Generator API
+    // include image, first and last name, email, city / location
+    // displayed image matches mockups on index.html
+
+const randomUserUrl = 'https://randomuser.me/api/?results=12&nat=us,ca,nz&exc=login,id,registered';
+
+fetch(randomUserUrl)
+    .then(response => response.json())
+    .then(generateCards)
+    .catch(error => console.error('Error', error));
+
 /** 
  * Generates HTML for each user object and injects it to the page
  * @param {Object[]} data - an array of user objects
@@ -52,6 +64,9 @@ function generateCards(data) {
         card.dataset['index'] = index;
     });
 }
+
+// step 5 – create a modal window
+    // modal displays the data stored in the data attributes of the div.card container
 
 /** 
  * Generates HTML for a modal containing more info about the user, as well as the modal's interaction logic
@@ -121,21 +136,6 @@ function generateModal(user, card) {
         }
     });
 }
-
-// step 4 (done) – get and display 12 random users
-    // single request to Random User Generator API
-    // include image, first and last name, email, city / location
-    // displayed image matches mockups on index.html
-
-const randomUserUrl = 'https://randomuser.me/api/?results=12&nat=us,ca,nz&exc=login,id,registered';
-
-fetch(randomUserUrl)
-    .then(response => response.json())
-    .then(generateCards)
-    .catch(error => console.error('Error', error));
-
-// step 5 – create a modal window
-    // modal displays the data stored in the data attributes of the div.card container
 
 /**
  * Handles the display of the modal window when clicking on the user card
